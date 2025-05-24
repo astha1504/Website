@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research and Development</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #28a745;         /* Match index.html green */
+            --secondary-green: #1B5E20;
+            --accent-green: #d1fae5;
+            --light-green: #e6f4ea;
+            --dark-green: #14532d;
+            --text-primary: #25283B;
+            --text-secondary: #6c757d;
+            --background: #F5F7FA;
+            --surface: #FFFFFF;
+            --border-light: #E1E8ED;
+            --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Raleway', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 3rem 0 2rem;
+           background: #f8f9fa; /* light neutral */
+    color: #25283B;      /* main heading color */
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+
+        .main-heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .main-heading i {
+            margin-right: 1rem;
+            color: var(--accent-green);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        /* Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(135deg, #28a745, #14532d); /* matching theme green */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    transition: transform 0.3s ease-in-out;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.navbar-logo {
+    height: 40px;
+    object-fit: contain;
+}
+
+.navbar-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar-links ul li a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-links ul li a:hover {
+    color: #d1fae5; /* light mint green on hover */
+}
+
+/* Add spacing below nav to prevent content overlap */
+body {
+    padding-top: 70px;
+}
+
+        /* Content Wrapper */
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--primary-green);
+        }
+
+        .project-card.active {
+            border-color: var(--primary-green);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="60" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: white;
+            z-index: 1;
+            position: relative;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .project-team-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .team-count {
+            background: var(--light-green);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tech-count {
+            background: var(--secondary-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            border-bottom: 3px solid var(--light-green);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: var(--primary-green);
+        }
+
+        /* Detail Page Styles */
+        .nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left,
+.nav-action {
+  width: 200px; /* fixed width to balance left and right */
+}
+
+.nav-title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+        .project-hero {
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .detail-section {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 2rem;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-leader {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .team-leader::before {
+            content: '👑';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2rem;
+            background: var(--accent-green);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-member {
+            background: var(--surface);
+            border: 2px solid var(--border-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-branch {
+            background: var(--light-green);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, var(--secondary-green), var(--dark-green));
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .tech-item:hover {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            background: var(--border-light);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .content-wrapper {
+                padding: 0 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html"><img src="img/jivitalogo.png" class="navbar-logo" alt="Logo"></a>
+        <div class="nav-left"></div>
+        <div class="navbar-links">
+          <ul>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Our Mission</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Events</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="gallery.html">Image Gallery</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="research.html">Projects</a></li>
+          </ul>
+              
+        </div>
+        <span class="navbar-menu-icon" onclick="showmenu()">&#9776;</span>
+      </nav>
+    <!-- Main Gallery Page -->
+    <div id="gallery-page" class="page active">
+        <div class="header-section">
+            <h1 class="main-heading">
+                <i class="fas fa-flask"></i>
+                Research and Development
+            </h1>
+            <p class="subtitle">Innovative Projects Driving the Future</p>
+        </div>
+
+        <div class="content-wrapper">
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i>
+                Active Research Projects
+            </h2>
+            
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Project cards will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Page -->
+    <div id="detail-page" class="page">
+        <nav class="navbar">
+            <div class="rd-navbar-container">
+                <a href="#" class="nav-brand">
+                    <i class="fas fa-flask"></i>
+                    Research & Development
+                </a>
+                <!--button class="back-btn" onclick="showGallery()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Projects
+                </button-->
+            </div>
+        </nav>
+
+        <div id="project-hero-section" class="project-hero">
+            <!-- Dynamic content -->
+        </div>
+
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="main-details">
+                    <div id="project-overview-section" class="detail-section">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <div id="team-structure-section" class="detail-section">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <div id="technologies-section" class="detail-section">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div id="timeline-card" class="info-card">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-trophy"></i>
+                            Key Milestones
+                        </h3>
+                        <ul id="milestones-list" style="list-style: none; padding: 0;">
+                            <!-- Dynamic content -->
+                        </ul>
+                    </div>
+
+                    <div id="contact-card" class="info-card">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectsData = [
+            {
+                id: 1,
+                title: "Quantum Computing Interface",
+                description: "Developing an intuitive interface for quantum computing operations, making quantum algorithms accessible to researchers and developers.",
+                detailedDescription: "Our quantum computing interface project aims to democratize quantum computing by creating user-friendly tools that abstract complex quantum mechanics principles. We're building a comprehensive platform that allows researchers, students, and developers to interact with quantum computers without requiring deep expertise in quantum physics. The interface includes visual programming tools, simulation capabilities, and real-time quantum circuit design features.",
+                leader: { name: "Dr. Sarah Chen", role: "Principal Investigator", branch: "Quantum Computing Research Division" },
+                members: [
+                    { name: "Alex Rodriguez", role: "Senior Software Engineer", branch: "Frontend Development" },
+                    { name: "Maya Patel", role: "Quantum Algorithm Specialist", branch: "Algorithm Research" },
+                    { name: "Dr. James Wright", role: "Physics Consultant", branch: "Theoretical Physics" },
+                    { name: "Emma Thompson", role: "UX/UI Designer", branch: "User Experience" },
+                    { name: "David Kim", role: "Backend Developer", branch: "Infrastructure" },
+                    { name: "Sophie Laurent", role: "Quality Assurance Lead", branch: "Testing & Validation" }
+                ],
+                technologies: ["Python", "Qiskit", "React", "WebGL", "Docker", "Kubernetes"],
+                icon: "fas fa-atom",
+                progress: 65,
+                startDate: "January 2024",
+                endDate: "December 2025",
+                phase: "Development"
+            },
+            {
+                id: 2,
+                title: "AI-Powered Drug Discovery",
+                description: "Leveraging machine learning and artificial intelligence to accelerate the drug discovery process from years to months.",
+                detailedDescription: "This revolutionary project combines cutting-edge artificial intelligence with pharmaceutical research to dramatically reduce drug discovery timelines. Our AI models can predict molecular behavior, identify potential drug compounds, and simulate clinical trial outcomes. We're using deep learning to analyze vast databases of chemical compounds and biological data to identify promising therapeutic targets faster than ever before.",
+                leader: { name: "Dr. Emily Johnson", role: "Research Director", branch: "Biomedical AI Research" },
+                members: [
+                    { name: "Michael Zhang", role: "Machine Learning Engineer", branch: "AI Development" },
+                    { name: "Dr. Priya Sharma", role: "Pharmaceutical Researcher", branch: "Drug Discovery" },
+                    { name: "Robert Kim", role: "Data Scientist", branch: "Bioinformatics" },
+                    { name: "Lisa Chang", role: "Computational Biologist", branch: "Molecular Modeling" },
+                    { name: "Carlos Martinez", role: "Database Administrator", branch: "Data Management" },
+                    { name: "Dr. Anna Petrov", role: "Clinical Research Coordinator", branch: "Clinical Trials" }
+                ],
+                technologies: ["TensorFlow", "PyTorch", "BioPython", "PostgreSQL", "AWS", "Apache Spark"],
+                icon: "fas fa-pills",
+                progress: 72,
+                startDate: "March 2023",
+                endDate: "August 2025",
+                phase: "Clinical Testing"
+            },
+            {
+                id: 3,
+                title: "Sustainable Energy Grid",
+                description: "Creating intelligent algorithms to optimize renewable energy distribution across smart grids for maximum efficiency.",
+                detailedDescription: "Our smart grid optimization project focuses on creating an intelligent energy distribution network that maximizes renewable energy usage while minimizing waste. The system uses real-time data from solar panels, wind turbines, and energy storage systems to predict demand and optimize distribution. We're implementing machine learning algorithms that can adapt to changing weather patterns and energy consumption habits.",
+                leader: { name: "Dr. David Thompson", role: "Energy Systems Lead", branch: "Renewable Energy Division" },
+                members: [
+                    { name: "Lisa Wang", role: "Grid Systems Engineer", branch: "Power Systems" },
+                    { name: "Carlos Mendez", role: "IoT Specialist", branch: "Sensor Networks" },
+                    { name: "Dr. Anna Kowalski", role: "Energy Analytics Expert", branch: "Data Analysis" },
+                    { name: "Mark Jensen", role: "Software Developer", branch: "Grid Software" },
+                    { name: "Fatima Al-Rashid", role: "Sustainability Consultant", branch: "Environmental Impact" },
+                    { name: "Jake Morrison", role: "Field Operations Manager", branch: "Implementation" }
+                ],
+                technologies: ["MATLAB", "Python", "IoT Sensors", "MongoDB", "Apache Kafka", "Grafana"],
+                icon: "fas fa-solar-panel",
+                progress: 58,
+                startDate: "June 2023",
+                endDate: "December 2025",
+                phase: "Pilot Testing"
+            },
+            {
+                id: 4,
+                title: "Autonomous Vehicle Safety",
+                description: "Developing advanced safety protocols and emergency response systems for autonomous vehicles in all conditions.",
+                detailedDescription: "Our autonomous vehicle safety project is developing next-generation safety systems that can handle complex driving scenarios and emergency situations. We're creating AI-powered decision-making systems that can react faster than human drivers while maintaining passenger safety as the top priority. The project includes advanced sensor fusion, predictive collision avoidance, and emergency response protocols.",
+                leader: { name: "Dr. Kevin Park", role: "Autonomous Systems Director", branch: "Vehicular AI Research" },
+                members: [
+                    { name: "Jessica Liu", role: "Computer Vision Engineer", branch: "Perception Systems" },
+                    { name: "Ahmed Hassan", role: "Control Systems Engineer", branch: "Vehicle Control" },
+                    { name: "Dr. Rachel Green", role: "Safety Systems Analyst", branch: "Safety Engineering" },
+                    { name: "Tom Wilson", role: "Sensor Fusion Specialist", branch: "Sensor Technology" },
+                    { name: "Nina Patel", role: "AI Ethics Researcher", branch: "Ethics & Safety" },
+                    { name: "Dr. Marcus Weber", role: "Testing Coordinator", branch: "Vehicle Testing" }
+                ],
+                technologies: ["C++", "ROS", "LIDAR", "Computer Vision", "CUDA", "Linux"],
+                icon: "fas fa-car",
+                progress: 45,
+                startDate: "September 2023",
+                endDate: "June 2026",
+                phase: "Prototype Development"
+            },
+            {
+                id: 5,
+                title: "Blockchain Healthcare Records",
+                description: "Building a secure, decentralized system for managing healthcare records with privacy and seamless data sharing.",
+                detailedDescription: "This groundbreaking project creates a secure, patient-controlled healthcare record system using blockchain technology. Patients will have complete control over their medical data while enabling seamless sharing with healthcare providers. The system ensures privacy through advanced encryption while maintaining interoperability across different healthcare systems and providers worldwide.",
+                leader: { name: "Dr. Mark Stevens", role: "Blockchain Healthcare Lead", branch: "Digital Health Innovation" },
+                members: [
+                    { name: "Sophia Martinez", role: "Blockchain Developer", branch: "Distributed Systems" },
+                    { name: "Daniel O'Connor", role: "Security Engineer", branch: "Cybersecurity" },
+                    { name: "Dr. Ling Wei", role: "Healthcare Informatics Specialist", branch: "Medical Records" },
+                    { name: "Ryan Cooper", role: "Smart Contract Developer", branch: "Blockchain Development" },
+                    { name: "Zara Ahmed", role: "Privacy Compliance Officer", branch: "Regulatory Affairs" },
+                    { name: "Dr. Paul Nguyen", role: "Clinical Integration Specialist", branch: "Healthcare Systems" }
+                ],
+                technologies: ["Solidity", "Ethereum", "IPFS", "Node.js", "React", "MetaMask"],
+                icon: "fas fa-user-md",
+                progress: 80,
+                startDate: "January 2023",
+                endDate: "March 2025",
+                phase: "Integration Testing"
+            },
+            {
+                id: 6,
+                title: "Neural Brain-Computer Interface",
+                description: "Pioneering non-invasive brain-computer interfaces to help paralyzed patients control devices through thought.",
+                detailedDescription: "Our brain-computer interface project is developing revolutionary technology that allows paralyzed individuals to control computers and devices using only their thoughts. Using advanced neural signal processing and machine learning, we're creating non-invasive interfaces that can decode brain signals and translate them into digital commands. This technology has the potential to restore independence to millions of people worldwide.",
+                leader: { name: "Dr. Maria Rodriguez", role: "Neurotechnology Director", branch: "Brain-Computer Interface Lab" },
+                members: [
+                    { name: "James Anderson", role: "Neural Signal Engineer", branch: "Signal Processing" },
+                    { name: "Dr. Yuki Tanaka", role: "Neuroscientist", branch: "Neuroscience Research" },
+                    { name: "Sarah Mitchell", role: "Machine Learning Specialist", branch: "AI Development" },
+                    { name: "Dr. Ben Foster", role: "Clinical Researcher", branch: "Clinical Studies" },
+                    { name: "Aisha Okafor", role: "Biomedical Engineer", branch: "Medical Devices" },
+                    { name: "Lucas Silva", role: "Software Integration Lead", branch: "Software Development" }
+                ],
+                technologies: ["Signal Processing", "Machine Learning", "EEG", "Python", "TensorFlow", "Real-time Systems"],
+                icon: "fas fa-brain",
+                progress: 38,
+                startDate: "February 2024",
+                endDate: "December 2026",
+                phase: "Research & Development"
+            },
+            {
+                id: 7,
+                title: "Space Debris Tracking",
+                description: "Developing a comprehensive tracking system for space debris to prevent collisions with satellites and spacecraft.",
+                detailedDescription: "Our space debris tracking project addresses the growing threat of orbital debris to spacecraft and satellites. We're developing an advanced tracking system that uses radar, optical sensors, and predictive algorithms to monitor thousands of debris objects in Earth's orbit. The system provides early collision warnings and helps mission planners avoid dangerous debris fields.",
+                leader: { name: "Dr. Elena Volkov", role: "Space Surveillance Director", branch: "Orbital Mechanics Division" },
+                members: [
+                    { name: "Captain John Harris", role: "Mission Operations Manager", branch: "Space Operations" },
+                    { name: "Dr. Raj Gupta", role: "Orbital Dynamics Specialist", branch: "Trajectory Analysis" },
+                    { name: "Isabel Garcia", role: "Radar Systems Engineer", branch: "Detection Systems" },
+                    { name: "Chris Taylor", role: "Data Analytics Engineer", branch: "Tracking Analytics" },
+                    { name: "Dr. Mei-Lin Wu", role: "Predictive Modeling Expert", branch: "Collision Prediction" },
+                    { name: "Alex Petersen", role: "Ground Systems Coordinator", branch: "Ground Operations" }
+                ],
+                technologies: ["Radar Systems", "Satellite Technology", "Predictive Analytics", "C++", "Real-time Processing", "Database Systems"],
+                icon: "fas fa-satellite",
+                progress: 92,
+                startDate: "May 2022",
+                endDate: "October 2024",
+                phase: "Deployment"
+            }
+        ];
+
+        const projectsGrid = document.getElementById('projectsGrid');
+
+        function init() {
+            renderProjectCards();
+            addEventListeners();
+        }
+
+        function renderProjectCards() {
+            projectsGrid.innerHTML = '';
+            
+            projectsData.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.setAttribute('data-project-id', project.id);
+                
+                card.innerHTML = `
+                    <div class="project-image">
+                        <i class="project-icon ${project.icon}"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-card-title">${project.title}</h3>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-team-preview">
+                            <span class="team-count">👑 1 Leader + 6 Members</span>
+                            <span class="tech-count">${project.technologies.length} Technologies</span>
+                        </div>
+                    </div>
+                `;
+                
+                projectsGrid.appendChild(card);
+                
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeInUp 0.6s ease-out both';
+            });
+        }
+
+        function addEventListeners() {
+            projectsGrid.addEventListener('click', handleCardClick);
+        }
+
+        function handleCardClick(event) {
+            const card = event.target.closest('.project-card');
+            if (!card) return;
+            
+            const projectId = parseInt(card.getAttribute('data-project-id'));
+            showProjectDetails(projectId);
+        }
+
+        function showProjectDetails(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+            
+            // Update hero section
+            document.getElementById('project-hero-section').innerHTML = `
+                <i class="${project.icon} hero-icon"></i>
+                <h1 class="hero-title">${project.title}</h1>
+                <p class="hero-subtitle">${project.description}</p>
+            `;
+            
+            // Update overview section
+            document.getElementById('project-overview-section').innerHTML = `
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Project Overview
+                </h2>
+                <div class="section-content">
+                    ${project.detailedDescription}
+                </div>
+            `;
+            
+            // Update team section
+            document.getElementById('team-structure-section').innerHTML = `
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Team Structure
+                </h2>
+                <div class="team-grid">
+                    <div class="team-leader">
+                        <div class="member-name">${project.leader.name}</div>
+                        <div class="member-role">${project.leader.role}</div>
+                        <div class="member-branch">${project.leader.branch}</div>
+                    </div>
+                    ${project.members.map(member => `
+                        <div class="team-member">
+                            <div class="member-name">${member.name}</div>
+                            <div class="member-role">${member.role}</div>
+                            <div class="member-branch">${member.branch}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Update technologies section
+            document.getElementById('technologies-section').innerHTML = `
+                <h2 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Technologies Used
+                </h2>
+                <div class="tech-grid">
+                    ${project.technologies.map(tech => `<div class="tech-item">${tech}</div>`).join('')}
+                </div>
+            `;
+            
+            // Update timeline card
+            document.getElementById('timeline-card').innerHTML = `
+                <h3 class="info-title">
+                    <i class="fas fa-calendar"></i>
+                    Project Timeline
+                </h3>
+                <p><strong>Start Date:</strong> ${project.startDate}</p>
+                <p><strong>Expected Completion:</strong> ${project.endDate}</p>
+                <p><strong>Current Phase:</strong> ${project.phase}</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${project.progress}%;"></div>
+                </div>
+                <p><small>${project.progress}% Complete</small></p>
+            `;
+            
+            // Update milestones
+            document.getElementById('milestones-list').innerHTML = `
+                <li style="margin-bottom: 0.5rem;">✅ Research Phase Complete</li>
+                <li style="margin-bottom: 0.5rem;">✅ Team Assembly</li>
+                <li style="margin-bottom: 0.5rem;">${project.progress > 50 ? '✅' : '🔄'} Development Phase</li>
+                <li style="margin-bottom: 0.5rem;">${project.progress > 75 ? '✅' : '⏳'} Testing Phase</li>
+                <li style="margin-bottom: 0.5rem;">${project.progress > 95 ? '✅' : '⏳'} Deployment</li>
+            `;
+            
+            // Update contact card
+            document.getElementById('contact-card').innerHTML = `
+                <h3 class="info-title">
+                    <i class="fas fa-envelope"></i>
+                    Contact
+                </h3>
+                <p><strong>Project Lead:</strong><br>${project.leader.name}</p>
+                <p><strong>Email:</strong><br>${project.leader.name.toLowerCase().replace(/\s+/g, '.').replace(/dr\./g, '')}@research.org</p>
+                <p><strong>Department:</strong><br>${project.leader.branch}</p>
+            `;
+            
+            // Switch to detail page
+            document.getElementById('gallery-page').classList.remove('active');
+            document.getElementById('detail-page').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function showGallery() {
+            document.getElementById('detail-page').classList.remove('active');
+            document.getElementById('gallery-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

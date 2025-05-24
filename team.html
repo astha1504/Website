@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700,400italic,700italic" rel="stylesheet">=
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Team with Nature Cursor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    body {
+      background: #f4f7f8;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      cursor: none; /* Hide default cursor */
+    }
+
+    /* Custom Nature Cursor */
+    .nature-cursor {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      background-image: url('img/cursor.png');
+      background-size: cover;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+    }
+/* Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(5, 150, 105, 0.95); /* matching theme green */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    transition: transform 0.3s ease-in-out;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.navbar-logo {
+    height: 40px;
+    object-fit: contain;
+}
+
+.navbar-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar-links ul li a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-links ul li a:hover {
+    color: #d1fae5; /* light mint green on hover */
+}
+
+/* Add spacing below nav to prevent content overlap */
+body {
+    padding-top: 70px;
+}
+    /* Team Section */
+    .team-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 100px 2rem 2rem; /* Added top padding to push below navbar */
+  text-align: center;
+  position: relative;
+}
+
+    .team-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #007b5e;
+      animation: slideDown 1s ease forwards;
+    }
+
+    .sub-title {
+      font-size: 2rem;
+      margin: 2.5rem 0 1rem;
+      color: #444;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Team Grid Layout */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+      justify-content: center;
+    }
+
+    /* Flip Card Effect */
+    .team-card {
+      background: transparent;
+      perspective: 1000px;
+      height: 380px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .team-card:nth-child(1) { animation-delay: 0.1s; }
+    .team-card:nth-child(2) { animation-delay: 0.2s; }
+    .team-card:nth-child(3) { animation-delay: 0.3s; }
+    .team-card:nth-child(4) { animation-delay: 0.4s; }
+    /* Add more nth-child rules if needed */
+
+    .team-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .team-card:hover .team-inner {
+      transform: rotateY(180deg);
+    }
+
+    .team-front, .team-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Front Side */
+    .team-front {
+      background: white;
+    }
+
+    .team-front img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007b5e;
+      transition: transform 0.3s;
+    }
+
+    .team-front h4 {
+      margin-top: 15px;
+      font-size: 1.4rem;
+      color: #007b5e;
+    }
+
+    .team-front p {
+      color: #555;
+      margin-top: 5px;
+    }
+
+    /* Back Side */
+    .team-back {
+      background: #007b5e;
+      color: white;
+      transform: rotateY(180deg);
+      text-align: center;
+      padding: 25px;
+    }
+
+    .team-back p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffd700;
+    }
+
+    /* Team Note */
+    .team-note {
+      max-width: 800px;
+      margin: 3rem auto 0;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      line-height: 1.7;
+      color: #333;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .team-title { font-size: 2.2rem; }
+      .sub-title { font-size: 1.4rem; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body> <nav class="navbar">
+  <a href="index.html"><img src="img/jivitalogo.png" class="navbar-logo" alt="Logo"></a>
+  <div class="navbar-links">
+    <ul>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Our Mission</a></li>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Events</a></li>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="gallery.html">Image Gallery</a></li>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="team.html">Team</a></li>
+      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="research.html">Projects</a></li>
+   
+    </ul>
+        
+  </div>
+  <span class="navbar-menu-icon" onclick="showmenu()">&#9776;</span>
+</nav>
+  <!-- Custom Nature Cursor Element -->
+  <div class="nature-cursor" id="natureCursor"></div>
+
+  <section class="team-section">
+    <h1 class="team-title">Meet Our Team</h1>
+  
+    <!-- Top 2 Ambassadors -->
+    <h2 class="sub-title">Ambassadors</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/shashwatt sir.jpg" alt="Shashwat Mishra" />
+            <h4>Mr. Shashwat Mishra</h4>
+            <p>Ambassador</p>
+          </div>
+          <div class="team-back">
+            <p>A guiding force ensuring the club's vision remains strong and impactful.</p>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/profile.php?id=61569686366127"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/dhirendra sir.jpg" alt="Dhirendra Pandey" />
+            <h4>Mr. Dhirendra Pandey</h4>
+            <p>Processing Head</p>
+          </div>
+          <div class="team-back">
+            <p>Bridging communication between teams and institutes.</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Core Team Grid -->
+    <h2 class="sub-title">Core Team</h2>
+    <div class="team-grid">
+      <!-- President -->
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/Anand Sir.jpg" alt="Anand Singh" />
+            <h4>Anand Singh</h4>
+            <p>President</p>
+          </div>
+          <div class="team-back">
+            <p>Leading the club with vision, innovation, and dedication to sustainability.</p>
+            <div class="social-icons">
+              <a href="https://www.linkedin.com/in/anand-singh-7003a8259"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Vice President -->
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/yashashva sir.jpg" alt="Yashasva Raj Singh" />
+            <h4>Yashasva Raj Singh</h4>
+            <p>Vice President</p>
+          </div>
+          <div class="team-back">
+            <p>Bridging teams and ensuring smooth execution of projects.</p>
+            <div class="social-icons">
+              <a href="https://www.linkedin.com/in/yashasva-raj-chauhan-13373a273"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Head -->
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/ishan sir.jpg" alt="Ishan Shukla" />
+            <h4>Ishan Shukla</h4>
+            <p>Event Head</p>
+          </div>
+          <div class="team-back">
+            <p>Leading event planning and execution, ensuring impactful sustainability initiatives.</p>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.linkedin.com/in/ishan-shukla"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Continue with all other team members in the same pattern -->
+      <!-- PRO -->
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/newone.jpg" alt="Shiv Mishra" />
+            <h4>Shiv Mishra</h4>
+            <p>Public Relations Officer</p>
+          </div>
+          <div class="team-back">
+            <p>Managing outreach, collaborations, and media engagements.</p>
+            <div class="social-icons">
+              <a href="https://www.linkedin.com/in/shiv-mishra-676120250"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Convenor -->
+      <div class="team-card">
+        <div class="team-inner">
+          <div class="team-front">
+            <img src="img/newone2.jpg" alt="Riya Yadav" />
+            <h4>Riya Yadav</h4>
+            <p>Convenor</p>
+          </div>
+          <div class="team-back">
+            <p>Leads planning, coordination, and execution of events/projects.</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="team-card" data-aos="flip-left">
+        <div class="team-inner">
+            <div class="team-front">
+                <img src="img/iqra.jpg" alt="Iqra Zaheer">
+                <h4>Iqra Zaheer</h4>
+                <p>Student Head</p>
+            </div>
+            <div class="team-back">
+                <p>Ensuring students stay engaged and motivated, leading initiatives with enthusiasm.</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/iqra-zaheer-9b3b1132a" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="team-card" data-aos="flip-left">
+      <div class="team-inner">
+          <div class="team-front">
+              <img src="img/shaurya.jpg" alt="Shaurya Tiwari">
+              <h4>Shaurya Tiwari</h4>
+              <p>Secretary</p>
+          </div>
+          <div class="team-back">
+              <p>Ensuring smooth coordination, keeping records, and streamlining communication across the club.</p>
+              <div class="social-icons">
+                  <a href="https://www.linkedin.com/in/shaurya-tiwari-a2a5172a7" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="team-card" data-aos="flip-left">
+    <div class="team-inner">
+        <div class="team-front">
+            <img src="img/aarna.jpg" alt="Arna Tiwari">
+            <h4>Arna Tiwari</h4>
+            <p>Joint Secretary</p>
+        </div>
+        <div class="team-back">
+            <p>Collaborating with the secretary to maintain organization and oversee event planning.</p>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/aarna-tiwari-b5231830b" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="team-card" data-aos="flip-left">
+  <div class="team-inner">
+      <div class="team-front">
+          <img src="img/vanshika.jpg" alt="Vanshika Singh">
+          <h4>Vanshika Singh</h4>
+          <p>Treasurer</p>
+      </div>
+      <div class="team-back">
+          <p>Oversees the club’s finances, budgeting events, and ensuring funding for sustainability projects.</p>
+          <div class="social-icons">
+              <a href="https://www.linkedin.com/in/vanshika-singh-665b242a9" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Team Member 9 -->
+<div class="team-card" data-aos="flip-left">
+  <div class="team-inner">
+      <div class="team-front">
+          <img src="img/aayussshhhh.jpg" alt="Ayush Kushwaha">
+          <h4>Ayush Kushwaha</h4>
+          <p>Creative Head</p>
+      </div>
+      <div class="team-back">
+          <p>Driving the creative vision of the club with innovative ideas, posters, and social media campaigns.</p>
+          <div class="social-icons">
+              <a href="https://www.linkedin.com/in/ayush-kushwaha-351b222a9" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Team Member 10 -->
+<div class="team-card" data-aos="flip-left">
+  <div class="team-inner">
+      <div class="team-front">
+          <img src="img/suraj bhaiya.jpg" alt="Suraj Kushwaha">
+          <h4>Suraj Kushwaha</h4>
+          <p>Logistics Head</p>
+      </div>
+      <div class="team-back">
+          <p>Manages resources and ensures smooth execution of events with timely arrangements.</p>
+          <div class="social-icons">
+              <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.linkedin.com/in/suraj-kushwaha" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Team Member 11 -->
+<div class="team-card" data-aos="flip-left">
+  <div class="team-inner">
+      <div class="team-front">
+          <img src="img/tanya.jpg" alt="Tanya Dwivedi">
+          <h4>Tanya Dwivedi</h4>
+          <p>Sustainability Programs Coordinator</p>
+      </div>
+      <div class="team-back">
+          <p>Plans and implements sustainable initiatives, ensuring long-term impact.</p>
+          <div class="social-icons">
+              <a href="https://www.linkedin.com/in/tanya-dwivedi-a23a0330a" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Team Member 12 -->
+<div class="team-card" data-aos="flip-left">
+  <div class="team-inner">
+      <div class="team-front">
+          <img src="img/neelu.jpg" alt="Neelu Tiwari">
+          <h4>Neelu Tiwari</h4>
+          <p>Associate Event Head</p>
+      </div>
+      <div class="team-back">
+          <p>Assists in organizing and managing club events efficiently.</p>
+          <div class="social-icons">
+              <a href="https://www.linkedin.com/in/neelu-tiwari-52080628a" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Team Member: Ishan Shukla -->
+<div class="team-card" data-aos="flip-left">
+<div class="team-inner">
+<div class="team-front">
+  <img src="img/adya.jpg" alt="Ishan Shukla">
+  <h4>Adya Gupta</h4>
+  <p>Stewardship Officer</p>
+</div>
+<div class="team-back">
+  <p>Leading event planning and execution, ensuring impactful sustainability initiatives.</p>
+  <div class="social-icons">
+      <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/ishan-shukla" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Team Member: Prabhavi Tripathi -->
+<div class="team-card" data-aos="flip-left">
+<div class="team-inner">
+<div class="team-front">
+  <img src="img/prabhavi.jpg" alt="Prabhavi Tripathi">
+  <h4>Prabhavi Tripathi</h4>
+  <p>Club Voice & Writer</p>
+</div>
+<div class="team-back">
+  <p>Creating engaging content and managing communications for the club.</p>
+  <div class="social-icons">
+      <a href="https://www.instagram.com/jivita_allenhouse/" class="btn-social"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/prabhavi-tripathi-6a14892b3" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</div>
+</div>
+</div>
+      <!-- Add all other team members following the same structure -->
+      <!-- ... -->
+
+    </div>
+  
+    <p class="team-note">
+      The Jivita Team is a passionate group of leaders, innovators, and changemakers dedicated to creating a greener, more sustainable future. Each member brings a unique set of skills, vision, and enthusiasm, working collaboratively to drive impactful environmental initiatives.
+    </p>
+  </section>
+
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.getElementById('natureCursor');
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Add interactive effects when hovering over cards
+    const cards = document.querySelectorAll('.team-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      });
+      card.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+
+    // Staggered animation for cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.team-card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+  </script>
+  <script>
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+  
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (currentScroll > lastScrollTop) {
+        // Scrolling down
+        navbar.classList.add('navbar-hidden');
+      } else {
+        // Scrolling up
+        navbar.classList.remove('navbar-hidden');
+      }
+  
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scroll
+    });
+  </script>
+  
+</body>
+</html>
